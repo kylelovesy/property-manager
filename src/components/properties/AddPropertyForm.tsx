@@ -33,7 +33,7 @@ export default function AddPropertyForm({ onSuccess }: AddPropertyFormProps) {
   async function onSubmit(values: z.infer<typeof formSchema>) {
   try {
     // First, try to scrape the data from the URL
-    const response = await fetch(`https://upeiqhxmbwrnsdiibkmx.supabase.co/functions/v1/scrape?url=${encodeURIComponent(values.url)}`);
+    const response = await fetch(`https://opkqdwwmgnbqbtlrybxm.supabase.co/functions/v1/scrape?url=${encodeURIComponent(values.url)}`);
     const data = await response.json();
 
     if (!response.ok) {
