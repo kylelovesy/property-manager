@@ -140,22 +140,32 @@ export default function AddPropertyForm({ onSuccess }: AddPropertyFormProps) {
     }
 
     // Populate initial ratings for Primary Users
-    const { data: primaryUsers, error: usersError } = await supabase
-      .from('users')
-      .select('id')
+    const { data: primaryUsers, error: primaryUsersError } = await supabase
+      .from('user_roles')
+      .select('user_id')
       .eq('role', 'primary');
 
-    if (usersError) {
-      console.error('Failed to fetch primary users:', usersError);
-    } else {
-      for (const primaryUser of primaryUsers || []) {
-        try {
-          await populateInitialRatings(propertyId, primaryUser.id);
-        } catch (ratingError) {
-          console.error(`Failed to populate ratings for user ${primaryUser.id}:`, ratingError);
-        }
-      }
+    if (primaryUsersError) {
+      console.error("Error fetching primary users from user_roles:", primaryUsersError);
+      // Handle the error appropriately, perhaps throw or return
+      return; 
     }
+
+    for (const primaryUser of primaryUsers || []) {
+      // Assuming populateInitialRatings expects the user's auth UID
+      await populateInitialRatings(propertyId, primaryUser.user_id); // <--- Use primaryUser.user_id
+    }
+    // if (usersError) {
+    //   console.error('Failed to fetch primary users:', usersError);
+    // } else {
+    //   for (const primaryUser of primaryUsers || []) {
+    //     try {
+    //       await populateInitialRatings(propertyId, primaryUser.id);
+    //     } catch (ratingError) {
+    //       console.error(`Failed to populate ratings for user ${primaryUser.id}:`, ratingError);
+    //     }
+    //   }
+    // }
 
     toast.success('Property added successfully!');
     onSuccess();
