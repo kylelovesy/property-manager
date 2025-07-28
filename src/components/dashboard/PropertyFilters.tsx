@@ -4,7 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { Form, FormControl, FormField, FormItem, FormLabel } from '../ui/form';
-import { Property } from '../../types';
+// import { Property } from '../../types';
 
 const filterSchema = z.object({
   location: z.string().optional(),

@@ -1,5 +1,4 @@
 import { supabase } from './supabase';
-import { Property, UserPriority, UserRating } from '../types';
 
 export async function populateInitialRatings(propertyId: string, userId: string) {
   try {

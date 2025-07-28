@@ -30,7 +30,11 @@ export default function PropertyCard({ property, onDelete }: PropertyCardProps) 
     if (error) {
       toast.error('Failed to submit feedback.');
     } else {
-      setFeedback([...feedback, { user_id: user.id, vote, created_at: new Date().toISOString() }]);
+      setFeedback([...feedback, {
+        user_id: user.id, vote, created_at: new Date().toISOString(),
+        id: '',
+        property_id: ''
+      }]);
       toast.success('Feedback submitted!');
     }
   };
